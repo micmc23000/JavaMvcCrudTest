@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.micmc23000.javamvccrudassignment2b;
+package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,15 +23,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author michael
  */
 @Entity
-@Table(name = "styles")
+@Table(name = "breweries_geocode")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Styles.findAll", query = "SELECT s FROM Styles s"),
-    @NamedQuery(name = "Styles.findById", query = "SELECT s FROM Styles s WHERE s.id = :id"),
-    @NamedQuery(name = "Styles.findByCatId", query = "SELECT s FROM Styles s WHERE s.catId = :catId"),
-    @NamedQuery(name = "Styles.findByStyleName", query = "SELECT s FROM Styles s WHERE s.styleName = :styleName"),
-    @NamedQuery(name = "Styles.findByLastMod", query = "SELECT s FROM Styles s WHERE s.lastMod = :lastMod")})
-public class Styles implements Serializable {
+    @NamedQuery(name = "BreweriesGeocode.findAll", query = "SELECT b FROM BreweriesGeocode b"),
+    @NamedQuery(name = "BreweriesGeocode.findById", query = "SELECT b FROM BreweriesGeocode b WHERE b.id = :id"),
+    @NamedQuery(name = "BreweriesGeocode.findByBreweryId", query = "SELECT b FROM BreweriesGeocode b WHERE b.breweryId = :breweryId"),
+    @NamedQuery(name = "BreweriesGeocode.findByLatitude", query = "SELECT b FROM BreweriesGeocode b WHERE b.latitude = :latitude"),
+    @NamedQuery(name = "BreweriesGeocode.findByLongitude", query = "SELECT b FROM BreweriesGeocode b WHERE b.longitude = :longitude")})
+public class BreweriesGeocode implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,31 +41,29 @@ public class Styles implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cat_id")
-    private int catId;
+    @Column(name = "brewery_id")
+    private int breweryId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "style_name")
-    private String styleName;
+    @Column(name = "latitude")
+    private float latitude;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "last_mod")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastMod;
+    @Column(name = "longitude")
+    private float longitude;
 
-    public Styles() {
+    public BreweriesGeocode() {
     }
 
-    public Styles(Integer id) {
+    public BreweriesGeocode(Integer id) {
         this.id = id;
     }
 
-    public Styles(Integer id, int catId, String styleName, Date lastMod) {
+    public BreweriesGeocode(Integer id, int breweryId, float latitude, float longitude) {
         this.id = id;
-        this.catId = catId;
-        this.styleName = styleName;
-        this.lastMod = lastMod;
+        this.breweryId = breweryId;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Integer getId() {
@@ -80,28 +74,28 @@ public class Styles implements Serializable {
         this.id = id;
     }
 
-    public int getCatId() {
-        return catId;
+    public int getBreweryId() {
+        return breweryId;
     }
 
-    public void setCatId(int catId) {
-        this.catId = catId;
+    public void setBreweryId(int breweryId) {
+        this.breweryId = breweryId;
     }
 
-    public String getStyleName() {
-        return styleName;
+    public float getLatitude() {
+        return latitude;
     }
 
-    public void setStyleName(String styleName) {
-        this.styleName = styleName;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
-    public Date getLastMod() {
-        return lastMod;
+    public float getLongitude() {
+        return longitude;
     }
 
-    public void setLastMod(Date lastMod) {
-        this.lastMod = lastMod;
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     @Override
@@ -114,10 +108,10 @@ public class Styles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Styles)) {
+        if (!(object instanceof BreweriesGeocode)) {
             return false;
         }
-        Styles other = (Styles) object;
+        BreweriesGeocode other = (BreweriesGeocode) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -126,7 +120,7 @@ public class Styles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.github.micmc23000.javamvccrudassignment2b.Styles[ id=" + id + " ]";
+        return "com.github.micmc23000.javamvccrudassignment2b.BreweriesGeocode[ id=" + id + " ]";
     }
     
 }
